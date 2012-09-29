@@ -10,7 +10,7 @@ object QuestionBank {
   val Question = """(\d+);(.+);(.+);(.+);(.+);(.+);(\d)""".r
 
   def apply() = {
-    new QuestionBankSession(Random.shuffle(questions))
+    new QuestionBankSession(System.nanoTime(), Random.shuffle(questions))
   }
 
   def createQuestions() = {
@@ -37,7 +37,7 @@ object QuestionBank {
   }
 }
 
-class QuestionBankSession(var questions: List[Question]) {
+class QuestionBankSession(id: Long, var questions: List[Question]) {
   def nextQuestion() = {
     questions match {
       case head :: tail => {
