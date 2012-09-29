@@ -7,6 +7,20 @@ class QuestionService extends ScalatraServlet with ScalateSupport {
 
   get("/") {
     val session = QuestionBank()
+    Sessions.put(session)
+    redirect("/session/" + session.id)
+  }
+
+  get("/session/:id") {
+    Sessions.get(params("id").toLong) match {
+      case Some(session: QuestionBankSession) => {
+        session.nextQuestion() match {
+          case Some(question) => question
+          case None => "Finished!"
+        }
+      }
+      case None =>  halt(404, "Not found!")
+    }
   }
 
   notFound {

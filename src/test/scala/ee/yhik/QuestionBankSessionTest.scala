@@ -11,7 +11,7 @@ class QuestionBankSessionTest extends org.scalatest.FunSuite {
   )
 
   test("Get questions") {
-    val session = new QuestionBankSession(questions)
+    val session = new QuestionBankSession(1, questions)
 
     assert(session.nextQuestion().get eq questions(0))
     assert(session.nextQuestion().get eq questions(1))

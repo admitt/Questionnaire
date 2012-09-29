@@ -37,7 +37,7 @@ object QuestionBank {
   }
 }
 
-class QuestionBankSession(id: Long, var questions: List[Question]) {
+class QuestionBankSession(val id: Long, var questions: List[Question]) {
   def nextQuestion() = {
     questions match {
       case head :: tail => {
