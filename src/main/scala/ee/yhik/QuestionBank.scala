@@ -3,6 +3,7 @@ package ee.yhik
 import io.Source
 import ee.yhik.QuestionBank.Question
 import util.Random
+import scala.None
 
 object QuestionBank {
   lazy val questions = createQuestions()
@@ -37,5 +38,13 @@ object QuestionBank {
 }
 
 class QuestionBankSession(var questions: List[Question]) {
-
+  def nextQuestion() = {
+    questions match {
+      case head :: tail => {
+        questions = tail
+        Some(head)
+      }
+      case _ => None
+    }
+  }
 }
