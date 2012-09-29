@@ -3,10 +3,10 @@ package ee.yhik
 import org.scalatra._
 import scalate.ScalateSupport
 
-class Some extends ScalatraServlet with ScalateSupport {
+class QuestionService extends ScalatraServlet with ScalateSupport {
 
   get("/") {
-    QuestionBank.questions(0)
+    val session = QuestionBank()
   }
 
   notFound {
