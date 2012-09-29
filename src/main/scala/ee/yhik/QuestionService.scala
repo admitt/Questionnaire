@@ -15,7 +15,9 @@ class QuestionService extends ScalatraServlet with ScalateSupport {
     Sessions.get(params("id").toLong) match {
       case Some(session: QuestionBankSession) => {
         session.nextQuestion() match {
-          case Some(question) => question
+          case Some(question) => {
+            <pre>{question}</pre>
+          }
           case None => "Finished!"
         }
       }
