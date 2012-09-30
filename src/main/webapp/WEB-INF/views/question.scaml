@@ -3,12 +3,9 @@
 - attributes("title") = "Questionnaire"
 
 %form(method="post")
-    %table
-        %thead
-            %th #{question.question}
-        %tbody
-            %td #{question.answer1}
-            %td #{question.answer2}
-            %td #{question.answer3}
-            %td #{question.answer4}
+    %p #{question.question}
+    %input(type="radio" name="answer" value="1") 1) #{question.answer1}
+    %input(type="radio" name="answer" value="2") 2) #{question.answer2}
+    %input(type="radio" name="answer" value="3") 3) #{question.answer3}
+    %input(type="radio" name="answer" value="4") 4) #{question.answer4}
     %input(type="submit" value="Answer")

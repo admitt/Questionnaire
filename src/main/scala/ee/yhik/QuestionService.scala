@@ -17,13 +17,18 @@ class QuestionService extends ScalatraServlet with ScalateSupport {
         session.nextQuestion() match {
           case Some(question) => {
             contentType = "text/html"
-            layoutTemplate("/WEB-INF/views/question.scaml", "question" -> question)
+            scaml("/views/question.scaml",
+              "question" -> question)
           }
           case None => "Finished!"
         }
       }
       case None =>  halt(404, "Not found!")
     }
+  }
+
+  post("session/:id") {
+
   }
 
   notFound {
