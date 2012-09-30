@@ -22,7 +22,7 @@ object QuestionBank {
     }.toList
   }
 
-  class Question(id: Int, val question: String,
+  class Question(val id: Int, val question: String,
                  val answer1: String,val answer2: String,
                  val answer3: String,val answer4: String,
                  rightAnswer: Int) {
@@ -46,5 +46,9 @@ class QuestionBankSession(val id: Long, private[this] var questions: List[Questi
       }
       case _ => None
     }
+  }
+
+  def addAnswer(answer: String) {
+
   }
 }
