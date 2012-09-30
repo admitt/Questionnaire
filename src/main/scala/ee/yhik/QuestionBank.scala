@@ -22,9 +22,9 @@ object QuestionBank {
     }.toList
   }
 
-  class Question(id: Int, question: String,
-                 answer1: String, answer2: String,
-                 answer3: String, answer4: String,
+  class Question(id: Int, val question: String,
+                 val answer1: String,val answer2: String,
+                 val answer3: String,val answer4: String,
                  rightAnswer: Int) {
     override def toString = {
       new StringBuilder("Question#").append(id).append("\n")

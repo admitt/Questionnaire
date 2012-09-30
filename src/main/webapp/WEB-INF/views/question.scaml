@@ -1,0 +1,14 @@
+-@ val question: ee.yhik.QuestionBank.Question
+- attributes("headline") = "Some questions"
+- attributes("title") = "Questionnaire"
+
+%form(method="post")
+    %table
+        %thead
+            %th #{question.question}
+        %tbody
+            %td #{question.answer1}
+            %td #{question.answer2}
+            %td #{question.answer3}
+            %td #{question.answer4}
+    %input(type="submit" value="Answer")

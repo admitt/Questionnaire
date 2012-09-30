@@ -16,7 +16,8 @@ class QuestionService extends ScalatraServlet with ScalateSupport {
       case Some(session: QuestionBankSession) => {
         session.nextQuestion() match {
           case Some(question) => {
-            <pre>{question}</pre>
+            contentType = "text/html"
+            layoutTemplate("/WEB-INF/views/question.scaml", "question" -> question)
           }
           case None => "Finished!"
         }
