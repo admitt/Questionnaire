@@ -34,8 +34,10 @@ class QuestionService extends ScalatraServlet with ScalateSupport {
         scaml("/views/question.scaml",
           "question" -> question)
       }
-      case None =>
+      case None => {
+        Sessions.drop(session)
         "Finished! Result " + session.rightAnswers + "/" + session.totalQuestions
+      }
     }
   }
 
