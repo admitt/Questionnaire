@@ -19,4 +19,13 @@ class QuestionBankSessionTest extends org.scalatest.FunSuite {
     assert(session.nextQuestion() eq None)
   }
 
+  test("Calculates right answers amount") {
+    val session = new QuestionBankSession(1, questions)
+
+    session.addAnswer(1, 2)
+    session.addAnswer(2, 3)
+    session.addAnswer(3, 2)
+
+    assert(session.rightAnswers == 2)
+  }
 }
