@@ -52,8 +52,8 @@ class QuestionBankSession(val id: Long, questions: List[Question]) {
     }
   }
 
-  def addAnswer(questionId: Long, answer: String) {
-    answers += questionId -> answer.toInt
+  def addAnswer(questionId: Long, answer: Int) {
+    answers += questionId -> answer
   }
 
   def rightAnswers = questions.foldLeft(0)((acc, q) => {

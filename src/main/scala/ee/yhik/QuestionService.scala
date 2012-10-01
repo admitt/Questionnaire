@@ -20,7 +20,7 @@ class QuestionService extends ScalatraServlet with ScalateSupport {
   post("/session/:id") {
     withSession {
       session => {
-        session.addAnswer(params("questionId").toLong, params("answer"))
+        session.addAnswer(params("questionId").toLong, params("answer").toInt)
         nextAction(session)
       }
     }
