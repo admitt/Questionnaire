@@ -25,7 +25,7 @@ object QuestionBank {
   class Question(val id: Int, val question: String,
                  val answer1: String,val answer2: String,
                  val answer3: String,val answer4: String,
-                 rightAnswer: Int) {
+                 val rightAnswer: Int) {
     override def toString = {
       new StringBuilder("Question#").append(id).append("\n")
         .append(question).append("\n")
@@ -37,18 +37,26 @@ object QuestionBank {
   }
 }
 
-class QuestionBankSession(val id: Long, private[this] var questions: List[Question]) {
+class QuestionBankSession(val id: Long, questions: List[Question]) {
+  private var questionsLeft = questions
+  private var answers = Map[Long, Int]()
+  val totalQuestions = questions.size
+
   def nextQuestion() = {
-    questions match {
+    questionsLeft match {
       case head :: tail => {
-        questions = tail
+        questionsLeft = tail
         Some(head)
       }
       case _ => None
     }
   }
 
-  def addAnswer(answer: String) {
-
+  def addAnswer(questionId: Long, answer: String) {
+    answers += questionId -> answer.toInt
   }
+
+  def rightAnswers = questions.foldLeft(0)((acc, q) => {
+    acc + (if(answers(q.id) == q.rightAnswer) 1 else 0)
+  })
 }

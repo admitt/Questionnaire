@@ -12,32 +12,48 @@ class QuestionService extends ScalatraServlet with ScalateSupport {
   }
 
   get("/session/:id") {
-    Sessions.get(params("id").toLong) match {
-      case Some(session: QuestionBankSession) => {
-        session.nextQuestion() match {
-          case Some(question) => {
-            contentType = "text/html"
-            scaml("/views/question.scaml",
-              "question" -> question)
-          }
-          case None => "Finished!"
-        }
-      }
-      case None =>  halt(404, "Not found!")
+    withSession {
+      nextAction(_)
     }
   }
 
-  post("session/:id") {
+  post("/session/:id") {
+    withSession {
+      session => {
+        session.addAnswer(params("questionId").toLong, params("answer"))
+        nextAction(session)
+      }
+    }
+  }
 
+  def nextAction(session: QuestionBankSession) = {
+    session.nextQuestion() match {
+      case Some(question) => {
+        contentType = "text/html"
+
+        scaml("/views/question.scaml",
+          "question" -> question)
+      }
+      case None =>
+        "Finished! Result " + session.rightAnswers + "/" + session.totalQuestions
+    }
+  }
+
+  def withSession(f: QuestionBankSession => String) = {
+
+    Sessions.get(params("id").toLong) match {
+      case Some(session) => f(session)
+      case None => resourceNotFound()
+    }
   }
 
   notFound {
     // remove content type in case it was set through an action
-    contentType = null 
+    contentType = null
     // Try to render a ScalateTemplate if no route matched
     findTemplate(requestPath) map { path =>
       contentType = "text/html"
       layoutTemplate(path)
-    } orElse serveStaticResource() getOrElse resourceNotFound() 
+    } orElse serveStaticResource() getOrElse resourceNotFound()
   }
 }
