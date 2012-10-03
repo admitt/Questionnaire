@@ -1,12 +1,12 @@
 -@ val question: ee.yhik.QuestionBank.Question
 - attributes("headline") = "Some Scala questions"
 - attributes("title") = "Questionnaire"
-
 %form(method="post")
     %p #{question.question}
     %input(type="radio" name="answer" value="1") 1) #{question.answer1}
     %input(type="radio" name="answer" value="2") 2) #{question.answer2}
+    %br
     %input(type="radio" name="answer" value="3") 3) #{question.answer3}
     %input(type="radio" name="answer" value="4") 4) #{question.answer4}
     %input(type="hidden" name="questionId" value={question.id})
-    %input(type="submit" value="Answer")
+    %input(type="submit" value="Answer" style="display:block; margin-top:30px;margin-left:30px;")
